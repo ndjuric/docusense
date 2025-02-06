@@ -72,8 +72,9 @@ I developed like this, it reloads on change, but you can also run it simply like
 
 However you decide.. lets spawn a third shell
 ```bash
-~/ $ cd ~/docusense
-~/docusense/ $ make tests
+~/ $ cd ~/docusense 
+~/docusense/ $ source venv/bin/activate
+(venv) ~/docusense/ $ make tests
 ```
 
 I think some explanation is in order, you might've noticed that there is a Makefile in project root, I do come from C and I almost never abandon good tools, and make is one of those tools.
