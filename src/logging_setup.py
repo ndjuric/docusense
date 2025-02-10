@@ -2,6 +2,14 @@ import logging
 from fs import FS
 
 class AppLogger:
+    """
+    This is extremely important and I'm not a fan of printing to stdout/stderr
+    However, logging is necessary, and while print is slow, logging to files is.. also slow
+    - still, we can separate it to a class like this and maybe log to files only locally
+    otherwise logging to graylog
+    Or I could add graylog to docker-compose and just change the hostname depending on the environment..
+    All in all, centralized logging is a must, and this is a good start as any.
+    """
     def __init__(self, logger_name: str = "docusense"):
         self.fs = FS()
         self.logger = logging.getLogger(logger_name)

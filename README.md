@@ -94,3 +94,6 @@ So instead of changing directories you can actually just do everythig from here 
 I used pytest for testing and made as many things as possible into classes with more or less low cyclomatic complexity. I set a limit for myself - to finish this in a set number of hours, although I do have limited experience with elastic, and was oh so happy as the last AI winter thawed and the age of actual semantic search dawned. As I read the assignment I wanted to actually *do* everything you wrote, but I did not.. the LLMService is simulated but packages, openai for openai and requests for ollama are there... Also, I've been getting mixed results when running tests in docker-compose environment, which would be the easiest, and when I set up everything step by step yet I started late but I do want to finish today
 
 
+### UPDATE
+I forgot about elasticsearch indexing timeout at test time... I added an endpoint to invoke from tests and refresh the index manually after adding documents.
+

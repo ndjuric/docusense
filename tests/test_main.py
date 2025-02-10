@@ -40,6 +40,7 @@ def test_search_documents():
     text2 = " jumps over the lazy dog "
     client.post("/documents", data={"text": text1})
     client.post("/documents", data={"text": text2})
+    client.post("/es_refresh")
 
     # SEARCH FOR 'fox' - EXPECT AT LEAST ONE RESULT
     response = client.get("/search", params={"query": "fox", "k": 10})

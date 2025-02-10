@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+
 import os
 import time
 import logging
@@ -44,9 +45,8 @@ class ElasticSearchService:
             if res.get("result") in ["created", "updated"]:
                 self.logger.info(f"Indexed document {doc_id}")
                 return True
-            else:
-                self.logger.error(f"Indexing document {doc_id} returned unexpected result: {res.get('result')}")
-                return False
+            self.logger.error(f"Indexing document {doc_id} returned unexpected result: {res.get('result')}")
+            return False
         except Exception as e:
             self.logger.error(f"Exception indexing document {doc_id}: {e}")
             return False
@@ -88,8 +88,7 @@ class ElasticSearchService:
                 if es_client.ping():
                     self.logger.info(f"Connected to Elasticsearch at {es_host}")
                     return es_client
-                else:
-                    self.logger.warning(f"Elasticsearch at {es_host} not responsive. Attempt {attempt + 1}/{MAX_RETRIES}")
+                self.logger.warning(f"Elasticsearch at {es_host} not responsive. Attempt {attempt + 1}/{MAX_RETRIES}")
             except es_exceptions.ConnectionError as e:
                 self.logger.warning(f"Connection failed: {e}. Retrying in {RETRY_INTERVAL}s...")
             time.sleep(RETRY_INTERVAL)

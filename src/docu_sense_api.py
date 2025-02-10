@@ -1,8 +1,15 @@
+#!/usr/bin/env python
+
 from fastapi import APIRouter, HTTPException, Query, Form
+import logging
 from squirro_types import Document
 
 class DocuSenseAPI:
-    def __init__(self, service):
+    """
+    I like to keep everything object oriented, even stuff like API endpoints.
+    """
+    def __init__(self, service, logger: logging.Logger):
+        self.logger = logger
         self.service = service
         self.router = APIRouter()
         self._register_routes()
@@ -14,6 +21,15 @@ class DocuSenseAPI:
             if result is None:
                 raise HTTPException(status_code=500, detail="Failed to index document")
             return result
+        
+        @self.router.post("/es_refresh")
+        async def refresh_elasticsearch_index():
+            """
+            Endpoint to manually refresh the Elasticsearch index.
+            Useful for testing to ensure data is immediately searchable.
+            """
+            self.service.refresh_index(self.service.es_service.index_name)
+            return {"message": "Elasticsearch index refreshed"}
 
         @self.router.get("/documents/{document_id}", summary="Retrieve a document", response_model=Document)
         async def get_document_endpoint(document_id: str):
