@@ -83,7 +83,7 @@ So I tend to use Makefiles.
 If you execute `make help` in `~/docusense/` (project root)
 It will give you several commands:
 ```bash
-(venv) ~/docusense (main ✗) make help
+(venv) ~/docusense/ $ make help
 Available commands:
   make clean_pycache - Clean Python cache
   make tests - Run tests
@@ -96,4 +96,10 @@ I used pytest for testing and made as many things as possible into classes with 
 
 ### UPDATE
 I forgot about elasticsearch indexing timeout at test time... I added an endpoint to invoke from tests and refresh the index manually after adding documents.
+
+### Running with docker-compose
+```bash
+(venv) ~/docusense/ $ docker-compose up --build # so.. this will take some time but once the app is run...
+(venv) ~/docusense/ $ docker-compose exec app sh -c "python -m pytest -v"
+```
 
